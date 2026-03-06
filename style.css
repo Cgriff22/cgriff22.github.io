@@ -388,6 +388,29 @@ section {
 .terminal-body .highlight { color: var(--accent); }
 .terminal-body .warn { color: var(--amber); }
 
+/* ── SCREENSHOT BLOCKS ── */
+.screenshot-block {
+  background: #0d1117;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.screenshot-label {
+  background: #161b22;
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+}
+
+.screenshot-block img {
+  width: 100%;
+  display: block;
+}
+
 /* ── DNS DETAIL SECTION ── */
 .dns-section {
   display: grid;

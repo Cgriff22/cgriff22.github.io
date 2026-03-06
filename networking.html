@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Networking Concepts — cgriff22.github.io</title>
+  <title>Networking Conceptscgriff22.github.io</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
     <div class="hero-grid"></div>
     <div class="page-header-content">
       <h1>Networking <span class="accent">Concepts</span></h1>
-      <p>DNS resolution, IP addressing, HTTP/HTTPS protocols, and security — demonstrated with live evidence from this deployment.</p>
+      <p>DNS resolution, IP addressing, HTTP/HTTPS protocols, and security. Demonstrated with live evidence from this deployment.</p>
     </div>
   </div>
 
@@ -40,7 +40,7 @@
     <div class="dns-section">
       <div class="dns-explanation">
         <h3>How a Browser Finds This Site</h3>
-        <p>When you type our URL into your browser, a chain of lookups occurs before a single pixel renders on screen. DNS is the internet's phonebook — converting domain names to IP addresses.</p>
+        <p>When you type our URL into your browser, a chain of lookups occurs before a single pixel renders on screen. DNS is the internet's phonebook, converting domain names to IP addresses.</p>
         <ol class="dns-steps">
           <li>Browser checks its local DNS cache for a cached record</li>
           <li>If no cache hit, the OS resolver queries the configured DNS server</li>
@@ -51,45 +51,14 @@
       </div>
 
       <div>
-        <div class="terminal-block">
-          <div class="terminal-header">
-            <div class="terminal-dot red"></div>
-            <div class="terminal-dot yellow"></div>
-            <div class="terminal-dot green"></div>
-            <span class="terminal-title">nslookup output</span>
-          </div>
-          <div class="terminal-body">
-            <span class="prompt">$ </span><span class="cmd">nslookup cgriff22.github.io</span><br>
-            <span class="output">Server:&nbsp;&nbsp;8.8.8.8</span><br>
-            <span class="output">Address: 8.8.8.8#53</span><br><br>
-            <span class="output">Non-authoritative answer:</span><br>
-            <span class="output">Name:&nbsp;&nbsp;&nbsp;</span><span class="highlight">cgriff22.github.io</span><br>
-            <span class="output">Address: </span><span class="highlight">185.199.108.153</span><br>
-            <span class="output">Address: </span><span class="highlight">185.199.109.153</span><br>
-            <span class="output">Address: </span><span class="highlight">185.199.110.153</span><br>
-            <span class="output">Address: </span><span class="highlight">185.199.111.153</span><br>
-          </div>
+        <div class="screenshot-block">
+          <div class="screenshot-label">nslookup output</div>
+          <img src="images/nslookup.png" alt="nslookup cgriff22.github.io terminal output">
         </div>
 
-        <div class="terminal-block" style="margin-top: 16px;">
-          <div class="terminal-header">
-            <div class="terminal-dot red"></div>
-            <div class="terminal-dot yellow"></div>
-            <div class="terminal-dot green"></div>
-            <span class="terminal-title">dig output</span>
-          </div>
-          <div class="terminal-body">
-            <span class="prompt">$ </span><span class="cmd">dig cgriff22.github.io +short</span><br>
-            <span class="highlight">185.199.108.153</span><br>
-            <span class="highlight">185.199.109.153</span><br>
-            <span class="highlight">185.199.110.153</span><br>
-            <span class="highlight">185.199.111.153</span><br><br>
-            <span class="prompt">$ </span><span class="cmd">dig cgriff22.github.io AAAA +short</span><br>
-            <span class="warn">2606:50c0:8000::153</span><br>
-            <span class="warn">2606:50c0:8001::153</span><br>
-            <span class="warn">2606:50c0:8002::153</span><br>
-            <span class="warn">2606:50c0:8003::153</span><br>
-          </div>
+        <div class="screenshot-block">
+          <div class="screenshot-label">dig output</div>
+          <img src="images/dig.png" alt="dig cgriff22.github.io terminal output">
         </div>
       </div>
     </div>
@@ -104,7 +73,7 @@
       <div class="concept-card">
         <div class="concept-icon">📡</div>
         <h3>IPv4 Addresses</h3>
-        <p>GitHub Pages returns four A records — <code>185.199.108–111.153</code> — for anycast load balancing. Each is a 32-bit address, giving ~4.3 billion possible addresses globally. The multiple records provide redundancy: if one IP becomes unreachable, the client falls back to another.</p>
+        <p>GitHub Pages returns four A records: <code>185.199.108–111.153</code> for anycast load balancing. Each is a 32-bit address, giving ~4.3 billion possible addresses globally. The multiple records provide redundancy: if one IP becomes unreachable, the client falls back to another.</p>
       </div>
       <div class="concept-card">
         <div class="concept-icon">🌐</div>
@@ -113,22 +82,9 @@
       </div>
     </div>
 
-    <div class="terminal-block" style="margin-top: 32px;">
-      <div class="terminal-header">
-        <div class="terminal-dot red"></div>
-        <div class="terminal-dot yellow"></div>
-        <div class="terminal-dot green"></div>
-        <span class="terminal-title">IP address verification</span>
-      </div>
-      <div class="terminal-body">
-        <span class="prompt">$ </span><span class="cmd">ping -c 3 cgriff22.github.io</span><br>
-        <span class="output">PING cgriff22.github.io (</span><span class="highlight">185.199.108.153</span><span class="output">) 56(84) bytes of data.</span><br>
-        <span class="output">64 bytes from </span><span class="highlight">185.199.108.153</span><span class="output">: icmp_seq=1 ttl=56 time=</span><span class="warn">8.42 ms</span><br>
-        <span class="output">64 bytes from </span><span class="highlight">185.199.108.153</span><span class="output">: icmp_seq=2 ttl=56 time=</span><span class="warn">7.91 ms</span><br>
-        <span class="output">64 bytes from </span><span class="highlight">185.199.108.153</span><span class="output">: icmp_seq=3 ttl=56 time=</span><span class="warn">8.15 ms</span><br><br>
-        <span class="output">--- cgriff22.github.io ping statistics ---</span><br>
-        <span class="output">3 packets transmitted, 3 received, </span><span class="highlight">0% packet loss</span><br>
-      </div>
+    <div class="screenshot-block" style="margin-top: 32px;">
+      <div class="screenshot-label">IP address verification (ping)</div>
+      <img src="images/ping.png" alt="ping cgriff22.github.io terminal output">
     </div>
   </section>
 
@@ -138,7 +94,7 @@
     <h2 class="section-title">HTTP vs HTTPS</h2>
 
     <p style="color: var(--text-muted); max-width: 700px; margin-bottom: 12px; font-size: 0.95rem;">
-      HTTP transfers data in plaintext — anyone on the network path can read or modify it. HTTPS adds a TLS handshake that encrypts the connection, verifies the server's identity via certificates, and ensures data integrity.
+      HTTP transfers data in plaintext. Anyone on the network path can read or modify it. HTTPS adds a TLS handshake that encrypts the connection, verifies the server's identity via certificates, and ensures data integrity.
     </p>
 
     <table class="protocol-table">
@@ -183,24 +139,9 @@
       </tbody>
     </table>
 
-    <div class="terminal-block" style="margin-top: 32px;">
-      <div class="terminal-header">
-        <div class="terminal-dot red"></div>
-        <div class="terminal-dot yellow"></div>
-        <div class="terminal-dot green"></div>
-        <span class="terminal-title">HTTP response headers</span>
-      </div>
-      <div class="terminal-body">
-        <span class="prompt">$ </span><span class="cmd">curl -I https://cgriff22.github.io</span><br><br>
-        <span class="output">HTTP/2 </span><span class="highlight">200</span><br>
-        <span class="output">server: GitHub.com</span><br>
-        <span class="output">content-type: text/html; charset=utf-8</span><br>
-        <span class="output">strict-transport-security: </span><span class="warn">max-age=31536000</span><br>
-        <span class="output">x-content-type-options: nosniff</span><br>
-        <span class="output">x-frame-options: DENY</span><br>
-        <span class="output">content-security-policy: default-src 'self'</span><br>
-        <span class="output">cache-control: max-age=600</span><br>
-      </div>
+    <div class="screenshot-block" style="margin-top: 32px;">
+      <div class="screenshot-label">HTTP response headers (curl -I)</div>
+      <img src="images/curl.png" alt="curl -I https://cgriff22.github.io terminal output">
     </div>
   </section>
 
