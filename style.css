@@ -714,3 +714,235 @@ footer {
   .protocol-table { font-size: 0.8rem; }
   .protocol-table th, .protocol-table td { padding: 10px 12px; }
 }
+/* ── XSS DEMO ── */
+.xss-demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.xss-input-panel,
+.xss-output-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.xss-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.xss-panel-title {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.xss-mode-toggle {
+  display: inline-flex;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.xss-mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
+}
+
+.xss-mode-btn:hover {
+  color: var(--text-muted);
+}
+
+.xss-mode-btn.active {
+  background: var(--bg-card-hover);
+  color: var(--accent);
+}
+
+.xss-mode-indicator {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.xss-mode-indicator.unsafe {
+  background: rgba(251, 113, 133, 0.1);
+  color: var(--rose);
+  border: 1px solid rgba(251, 113, 133, 0.25);
+}
+
+.xss-mode-indicator.safe {
+  background: rgba(52, 211, 153, 0.1);
+  color: var(--green);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+.xss-label,
+.xss-output-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+.xss-label:first-of-type,
+.xss-output-label:first-of-type {
+  margin-top: 0;
+}
+
+#xss-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+#xss-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.xss-payloads {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.xss-payloads-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-right: 4px;
+}
+
+.xss-payload-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.xss-payload-btn:hover {
+  border-color: var(--border-accent);
+  color: var(--accent);
+  background: var(--bg-card-hover);
+}
+
+.xss-render-btn {
+  margin-top: 20px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent), #a78bfa);
+  border: none;
+  color: var(--bg);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  letter-spacing: 0.02em;
+}
+
+.xss-render-btn:hover {
+  opacity: 0.9;
+}
+
+.xss-render-btn:active {
+  transform: translateY(1px);
+}
+
+.xss-output {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 60px;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.xss-source {
+  background: #0d1117;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 0;
+}
+
+.xss-source code {
+  font-family: inherit;
+  background: none;
+  padding: 0;
+}
+
+.xss-explanation {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: rgba(34, 211, 238, 0.05);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.xss-explanation code {
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+@media (max-width: 768px) {
+  .xss-demo-grid {
+    grid-template-columns: 1fr;
+  }
+}
