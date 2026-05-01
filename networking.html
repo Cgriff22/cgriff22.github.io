@@ -9,6 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BN9VYESKCE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BN9VYESKCE');
+</script>
 <body>
 
   <!-- NAV -->
@@ -53,12 +62,12 @@
       <div>
         <div class="screenshot-block">
           <div class="screenshot-label">nslookup output</div>
-          <img src="images/nslookup.png" alt="nslookup cgriff22.github.io terminal output">
+          <img src="images/nslookup.png" alt="nslookup cgriff22.github.io terminal output" loading="lazy">
         </div>
 
         <div class="screenshot-block">
           <div class="screenshot-label">dig output</div>
-          <img src="images/dig.png" alt="dig cgriff22.github.io terminal output">
+          <img src="images/dig.png" alt="dig cgriff22.github.io terminal output" loading="lazy">
         </div>
       </div>
     </div>
@@ -84,7 +93,7 @@
 
     <div class="screenshot-block" style="margin-top: 32px;">
       <div class="screenshot-label">IP address verification (ping)</div>
-      <img src="images/ping.png" alt="ping cgriff22.github.io terminal output">
+      <img src="images/ping.png" alt="ping cgriff22.github.io terminal output" loading="lazy">
     </div>
   </section>
 
@@ -141,7 +150,7 @@
 
     <div class="screenshot-block" style="margin-top: 32px;">
       <div class="screenshot-label">HTTP response headers (curl -I)</div>
-      <img src="images/curl.png" alt="curl -I https://cgriff22.github.io terminal output">
+      <img src="images/curl.png" alt="curl -I https://cgriff22.github.io terminal output" loading="lazy">
     </div>
   </section>
 
@@ -177,6 +186,143 @@
       </div>
     </div>
   </section>
+
+<!-- XSS DEFENSE DEMO -->
+<section id="xss-demo">
+  <div class="section-label">// Live Security Demonstration</div>
+  <h2 class="section-title">XSS Defense in Action</h2>
+
+  <p style="color: var(--text-muted); max-width: 720px; margin-bottom: 32px; font-size: 0.95rem;">
+    Cross-Site Scripting (XSS) attacks inject malicious markup into pages that render user input. The demo below renders the same input two ways: directly via <code>innerHTML</code> (vulnerable), and through <a href="https://github.com/cure53/DOMPurify" target="_blank" style="color: var(--accent);">DOMPurify</a> sanitization (safe). Try one of the attack payloads to see the difference.
+  </p>
+
+  <div class="xss-demo-grid">
+
+    <!-- LEFT: Input + controls -->
+    <div class="xss-input-panel">
+      <div class="xss-panel-header">
+        <span class="xss-panel-title">Input</span>
+        <div class="xss-mode-toggle" role="tablist">
+          <button class="xss-mode-btn active" data-mode="unsafe" role="tab">Unsafe</button>
+          <button class="xss-mode-btn" data-mode="safe" role="tab">Safe (DOMPurify)</button>
+        </div>
+      </div>
+
+      <label for="xss-input" class="xss-label">Enter content to render:</label>
+      <textarea id="xss-input" rows="4" placeholder="Try: <img src=x onerror=alert('XSS')>"></textarea>
+
+      <div class="xss-payloads">
+        <span class="xss-payloads-label">Try a payload:</span>
+        <button class="xss-payload-btn" data-payload="<img src=x onerror=alert('XSS via img tag')>">img onerror</button>
+        <button class="xss-payload-btn" data-payload="<script>alert('XSS via script')</script>">script tag</button>
+        <button class="xss-payload-btn" data-payload="<iframe src='javascript:alert(`XSS via iframe`)'></iframe>">iframe</button>
+        <button class="xss-payload-btn" data-payload="<a href='javascript:alert(1)'>Click me</a>">javascript: href</button>
+        <button class="xss-payload-btn" data-payload="<b>Hello</b> <i>world</i>">benign HTML</button>
+      </div>
+
+      <button id="xss-render-btn" class="xss-render-btn">Render →</button>
+    </div>
+
+    <!-- RIGHT: Output + explanation -->
+    <div class="xss-output-panel">
+      <div class="xss-panel-header">
+        <span class="xss-panel-title">Rendered Output</span>
+        <span id="xss-mode-indicator" class="xss-mode-indicator unsafe">UNSAFE MODE</span>
+      </div>
+
+      <div class="xss-output-label">Live preview (rendered into DOM):</div>
+      <div id="xss-output" class="xss-output"></div>
+
+      <div class="xss-output-label">Sanitized HTML (what was actually inserted):</div>
+      <pre id="xss-sanitized-source" class="xss-source"><code>// Render something to see the output</code></pre>
+
+      <div id="xss-explanation" class="xss-explanation">
+        <strong>Unsafe mode:</strong> Input is inserted directly via <code>element.innerHTML = userInput</code>. Any script tags, event handlers, or javascript: URLs in the input will execute in the browser's context — this is how stored and reflected XSS attacks succeed.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DOMPurify from cdnjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.9/purify.min.js"
+        integrity="sha512-Ww6tyeQX0CzoyNJ7nM7QzfTyR8TQXlBPELLoFEsSyT9zPQ8dfY5HvNQXG3CJ0NOy6yqLqx5e3hPLCtPj/9hzpQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+
+<script>
+(function() {
+  const input = document.getElementById('xss-input');
+  const output = document.getElementById('xss-output');
+  const sourceView = document.getElementById('xss-sanitized-source');
+  const explanation = document.getElementById('xss-explanation');
+  const indicator = document.getElementById('xss-mode-indicator');
+  const renderBtn = document.getElementById('xss-render-btn');
+  const modeBtns = document.querySelectorAll('.xss-mode-btn');
+  const payloadBtns = document.querySelectorAll('.xss-payload-btn');
+
+  let mode = 'unsafe';
+
+  const explanations = {
+    unsafe: '<strong>Unsafe mode:</strong> Input is inserted directly via <code>element.innerHTML = userInput</code>. Any script tags, event handlers, or javascript: URLs in the input will execute in the browser\'s context — this is how stored and reflected XSS attacks succeed.',
+    safe: '<strong>Safe mode:</strong> Input is passed through <code>DOMPurify.sanitize()</code> before insertion. DOMPurify parses the HTML, walks the resulting tree, and strips any tags, attributes, or URL schemes on its blocklist (script, iframe, on* handlers, javascript: URLs). The cleaned HTML is then safe to insert.'
+  };
+
+  function escapeForDisplay(html) {
+    return html
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function render() {
+    const raw = input.value;
+    if (!raw) {
+      output.innerHTML = '<span style="color: var(--text-dim); font-style: italic;">(empty input)</span>';
+      sourceView.innerHTML = '<code>// Render something to see the output</code>';
+      return;
+    }
+
+    if (mode === 'unsafe') {
+      // Deliberately vulnerable — for demonstration only
+      output.innerHTML = raw;
+      sourceView.innerHTML = '<code>' + escapeForDisplay(raw) + '</code>';
+    } else {
+      const clean = DOMPurify.sanitize(raw);
+      output.innerHTML = clean;
+      sourceView.innerHTML = '<code>' + escapeForDisplay(clean || '(everything was stripped)') + '</code>';
+    }
+  }
+
+  function setMode(newMode) {
+    mode = newMode;
+    modeBtns.forEach(b => b.classList.toggle('active', b.dataset.mode === newMode));
+    indicator.textContent = newMode === 'unsafe' ? 'UNSAFE MODE' : 'SAFE MODE';
+    indicator.className = 'xss-mode-indicator ' + newMode;
+    explanation.innerHTML = explanations[newMode];
+    render();
+  }
+
+  modeBtns.forEach(btn => {
+    btn.addEventListener('click', () => setMode(btn.dataset.mode));
+  });
+
+  payloadBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      input.value = btn.dataset.payload;
+      render();
+    });
+  });
+
+  renderBtn.addEventListener('click', render);
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      render();
+    }
+  });
+})();
+</script>
 
   <!-- FOOTER -->
   <footer>
